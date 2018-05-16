@@ -1,6 +1,7 @@
 const koa = require('koa')
 const fs = require('fs')
 const koaRouter = require('koa-router')
+const server = require('koa-static')
 
 class AppLoader {
   removeString(source) {
@@ -39,6 +40,11 @@ class App extends koa {
     controllers.forEach(crl => {
       this.controller[crl.name] = crl.module
     })
+  }
+
+  setStaticServe(path, opts) {
+    console.log(require('path').join(this.loader.removeString(__dirname), path))
+    this.use(server(this.loader.removeString(__dirname) + path, opts))
   }
 
   setRouters() {
