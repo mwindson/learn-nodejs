@@ -2,6 +2,7 @@ const cluster = require('cluster')
 const http = require('http')
 const numCPUs = require('os').cpus().length
 
+cluster.schedulingPolicy = cluster.SCHED_RR
 if (cluster.isMaster) {
   console.log('CPU数', numCPUs)
   console.log('master is running')
