@@ -13,6 +13,14 @@ const opts = {
   // 会优先传输index.js.gz，默认开启
 }
 app.setStaticServe('/view', opts)
-app.listen(3000, '127.0.0.1', () => {
+
+const http = require('http')
+const server = http.Server(app.callback())
+const io = require('socket.io')(server)
+
+server.listen(3000, '127.0.0.1', () => {
   console.log('服务器启动')
+})
+process.on('uncaughtException', function(err) {
+  console.log(err)
 })

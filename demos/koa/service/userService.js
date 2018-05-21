@@ -15,5 +15,9 @@ module.exports = {
     })
     namesUsed.push(name)
     return guestNumber + 1
+  },
+  joinRoom(socket, room) {
+    socket.join(room)
+    
   }
 }

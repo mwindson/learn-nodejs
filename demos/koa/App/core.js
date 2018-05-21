@@ -43,7 +43,6 @@ class App extends koa {
   }
 
   setStaticServe(path, opts) {
-    console.log(require('path').join(this.loader.removeString(__dirname), path))
     this.use(server(this.loader.removeString(__dirname) + path, opts))
   }
 
