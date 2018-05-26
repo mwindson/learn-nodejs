@@ -10,6 +10,18 @@ const myWritable = new Writable({
 myWritable.write('test', () => {
   console.log('write end')
 })
+class myWritableStream extends Writable {
+  constructor(opts) {
+    super(opts)
+  }
+  _write(chunk, encoding, callback) {
+    console.log(chunk.toString().toUpperCase())
+    callback()
+  }
+}
+new myWritableStream().write('test', () => {
+  console.log('write end')
+})
 
 // readable流需要实现read方法
 const myReadable = new Readable({
@@ -33,7 +45,7 @@ const myDuplex = new Duplex({
     console.log(`reading... this chunk size is ${size}`)
   }
 })
-read$.pipe(myDuplex).pipe(process.stdout)
+// read$.pipe(myDuplex).pipe(process.stdout)
 
 // transform流需要实现tranform方法
 const myTransform = new Transform({
@@ -43,4 +55,7 @@ const myTransform = new Transform({
   }
 })
 
+myTransform.write('aaa')
+myTransform.end()
+myTransform.pipe(process.stdout)
 // read$.pipe(myTransform).pipe(process.stdout)
